@@ -7,6 +7,21 @@ const morgan = require('morgan');
 const app = express();
 // our app is an instance of express
 const router = require('./router');
+const mongoose = require('mongoose');
+
+// db setup ->
+// we tell mongoose to go connect to a particular instance of mongodb
+mongoose.connect('mongodb://localhost/auth', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+// internally, this creates a new db inside mongodb called auth
+
+const connection = mongoose.connection;
+
+connection.on('connected', function () {
+  console.log('connected to db');
+});
 
 // app setup ->
 // stuff about getting our express server running the way we want it to
